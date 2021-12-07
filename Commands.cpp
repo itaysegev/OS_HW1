@@ -1092,7 +1092,7 @@ void PipeCommand::execute() {
   int pid_1 = fork();
   if(pid_1 ==ERROR) {
     perror("smash error: fork failed");
-    exit(0);
+    exit(1);
   }
   //first child
   if (pid_1 == 0) {
@@ -1102,15 +1102,15 @@ void PipeCommand::execute() {
     }
     if(dup2(fd[WR],fd_to_close) == ERROR) { // 1 or 2 -> write pipe
       perror("smash error: dup2 failed");
-      exit(0);
+      exit(1);
     }
     if(close(fd[RD]) == ERROR) {
       perror("smash error: close failed");
-      exit(0);
+      exit(1);
     }
     if(close(fd[WR]) == ERROR) {
       perror("smash error: close failed");
-      exit(0);
+      exit(1);
     }
     std::string cmd_s = _trim(string(first_command));
     std::string firstWord = cmd_s.substr(0, cmd_s.find_first_of(" \n")); 
@@ -1124,7 +1124,7 @@ void PipeCommand::execute() {
   int pid_2 = fork();
   if(pid_2 ==ERROR) {
     perror("smash error: fork failed");
-    exit(0);
+    exit(1);
   }
   // second child
   if (pid_2 == 0) {
@@ -1134,15 +1134,15 @@ void PipeCommand::execute() {
     }
     if(dup2(fd[RD],0) == ERROR) { //0 -> read pipe
       perror("smash error: dup2 failed");
-      exit(0);
+      exit(1);
     }
     if(close(fd[RD]) == ERROR) {
       perror("smash error: close failed");
-      exit(0);
+      exit(1);
     }
     if(close(fd[WR]) == ERROR) {
       perror("smash error: close failed");
-      exit(0);
+      exit(1);
     }
     std::string cmd_s = _trim(string(second_command));
     std::string firstWord = cmd_s.substr(0, cmd_s.find_first_of(" \n")); 
@@ -1158,10 +1158,10 @@ void PipeCommand::execute() {
   close(fd[WR]);
   if(waitpid(pid_1, nullptr, 0) == ERROR) {
     perror("smash error: waitpid failed");
-    exit(0);
+    exit(1);
   }
   if(waitpid(pid_2, nullptr, 0) == ERROR) {
     perror("smash error: waitpid failed");
-    exit(0);
+    exit(1);
   }
 }
