@@ -1,5 +1,5 @@
 #TODO: replace ID with your own IDS, for example: 123456789_123456789
-SUBMITTERS := <student1-ID>_<student2-ID>
+SUBMITTERS := <318866068>_<313552739>
 COMPILER := g++
 COMPILER_FLAGS := --std=c++11 -Wall
 SRCS := Commands.cpp signals.cpp smash.cpp
@@ -23,8 +23,8 @@ $(SMASH_BIN): $(OBJS)
 $(OBJS): %.o: %.cpp
 	$(COMPILER) $(COMPILER_FLAGS) -c $^
 
-# zip: $(SRCS) $(HDRS)
-# 	zip $(SUBMITTERS).zip $^ submitters.txt Makefile
+zip: $(SRCS) $(HDRS)
+	zip $(SUBMITTERS).zip $^ submitters.txt Makefile
 
 clean:
 	rm -rf $(SMASH_BIN) $(OBJS) $(TESTS_OUTPUTS) 
