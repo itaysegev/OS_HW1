@@ -1116,10 +1116,10 @@ void PipeCommand::execute() {
     std::string firstWord = cmd_s.substr(0, cmd_s.find_first_of(" \n")); 
     if (firstWord.compare("showpid") == 0 || firstWord.compare("showpid&") == 0) {
       cout << "smash pid is " << curr_pid << endl;
-      exit(0);
+      exit(1);
     }
     SmallShell::getInstance().executeCommand(first_command.c_str());
-    exit(0);
+    exit(1);
   }
   int pid_2 = fork();
   if(pid_2 ==ERROR) {
@@ -1148,10 +1148,10 @@ void PipeCommand::execute() {
     std::string firstWord = cmd_s.substr(0, cmd_s.find_first_of(" \n")); 
     if (firstWord.compare("showpid") == 0 || firstWord.compare("showpid&") == 0) {
       cout << "smash pid is " << curr_pid << endl;
-      exit(0);
+      exit(1);
     }
     SmallShell::getInstance().executeCommand(second_command.c_str());
-    exit(0);
+    exit(1);
   }
   
   close(fd[RD]);
